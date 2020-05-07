@@ -1,0 +1,54 @@
+SERVER SIDE CODE:
+
+import socket
+import sys
+
+def create_socket():
+    try :
+        global host
+        global port
+        global s
+        host=" "
+        port=9999
+        s=socket.socket()
+    except socket error as msg:
+        print("socket creation error" + str(msg))
+
+def bind_socket():
+    try :
+        global host
+        global port
+        global s
+        s.bind((host,port))
+        s.listen(5)
+    except socket error as msg:
+        print("socket binding error " + str(msg))
+        bind_socket()
+global s
+while True:
+    conn,addr = s.accept()
+    while 1:
+        data=conn.recv(1024).decode()
+        var=open("‪C:\Users\swati singh\Desktop\data_log.txt.txt","w")
+        var.write(data)
+        var.close()
+        if not data:
+            break
+    cmd=input()
+    conn.send(str.encode(cmd))
+    conn.close()
+
+
+CLIENT SIDE CODE:
+
+
+import socket
+
+s=socket.socket()
+host="127.0.0.1"
+port=9999
+s.connect((host,port))
+file_data = input()
+s.send(str.encode(file_data))
+data=s.recv(1024)
+s.close()
