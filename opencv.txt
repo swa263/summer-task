@@ -1,0 +1,45 @@
+
+CODE:
+
+import cv2
+import numpy as np
+cap=cv2.VideoCapture(0)
+
+while True:
+    _, img = cap.read()
+    hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
+    black_lower = np.array([0, 0, 0], np.uint8)
+    black_upper = np.array([180, 255, 30], np.uint8)
+    black = cv2.inRange(hsv,black_lower, black_upper)
+    kernal = np.ones((5 ,5), "uint8")
+    red=cv2.dilate(black, kernal)
+    res=cv2.bitwise_and(img, img, mask=black)
+    (contours, hierarchy) = cv2.findContours(black, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    for pic,contour in enumerate(contours):
+        area = cv2.contourArea(contour)
+        if (area > 300):
+            x, y, w, h = cv2.boundingRect(contour)
+            img = cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 3)
+    img = cv2.flip(img, 1)
+    cv2.imshow("black", res)
+    cv2.imshow("Color Tracking",img)
+    if cv2.waitKey(10) & 0xFF == 27:
+        cap.release()
+        cv2.destroyAllWindows()
+        break
+
+
+STEPS :
+
+1. Import necessary files.
+2. open your web-cam.
+
+FOR VIDEO THROUGH WEB-CAM
+
+3. while True : _, img = cap.read()
+4. Converting frame(img) from BGR (Blue-Green-Red) to HSV (hue-saturation-value)
+5. Defining the range of BLACK color
+6. finding the range BLACK colour in the image
+7. Then we compare the amount of black color for the reference
+8. then tracking the black color and draw a rectangle around it.
+9. atlast displaying result.
