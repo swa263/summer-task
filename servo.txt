@@ -1,0 +1,39 @@
+     //for getting the range of the servo
+
+#include<Servo.h>
+int pos=0; 
+int servopin=9;
+int serodelay=25;
+Servo mypointer;
+
+void setup()
+{ 
+  Serial.begin(9600);
+  mypointer.attach(servopin);
+  }
+
+void loop()
+{
+  Serial.println("position of servo");
+  while(Serial.available()==0){ }
+  pos= Serial.parseInt();
+  mypointer.write(pos);
+}
+
+// if the range is 0 to 180 for example
+
+// code for the working of the servo
+
+
+void loop()
+{
+  for(pos=0; pos<=180; pos=pos+1)
+  {mypointer.write(pos);
+  delay(servodelay);
+    }
+  for(pos=180; pos>=0; pos=pos-1)
+  {
+    mypointer.write(pos);
+    delay(servodelay);
+    
+    }

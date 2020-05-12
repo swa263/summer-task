@@ -1,0 +1,31 @@
+//sender
+
+
+char var[5]="serial";
+
+void setup() {
+  Serial.begin(9600);
+
+}
+
+void loop() {
+  Serial.write(var,5);
+  delay(1000);
+
+}
+
+//receiver
+
+char var[10];
+
+void setup()
+{
+  Serial.begin(9600);
+  
+  }
+void loop()
+{
+  Serial.readBytes(var,5);
+  Serial.println(var);
+  delay(1000);
+  }
