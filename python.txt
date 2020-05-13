@@ -1,0 +1,570 @@
+CODE FOR THE MAGIC SQUARE : 
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the formingMagicSquare function below.
+
+def formingMagicSquare(s):
+ arr1=[]
+ for i in s:
+    arr1=arr1+i
+ l=[[2, 7, 6, 9, 5, 1, 4, 3, 8], [2, 9, 4, 7, 5, 3, 6, 1, 8], [4, 3, 8, 9, 5, 1, 2, 7, 6], [4, 9, 2, 3, 5, 7, 8, 1, 6], [6, 1, 8, 7, 5, 3, 2, 9, 4], [6, 7, 2, 1, 5, 9, 8, 3, 4],    [8, 1, 6, 3, 5, 7, 4, 9, 2], [8, 3, 4, 1, 5, 9, 6, 7, 2]]
+ a=[]
+ for i in l:
+    a.append(sum([abs(i[j]-arr1[j]) for j in range(9)]))
+ return min(a)
+
+
+    
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    s = []
+
+    for _ in range(3):
+        s.append(list(map(int, input().rstrip().split())))
+
+    result = formingMagicSquare(s)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+
+
+CODE FOR THE PAIRS PROBLEM : 
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the pairs function below.
+def pairs(k, arr):
+    count=0
+    for i in range(0,len(arr)):
+        for j in range(0,len(arr)):
+            if((arr[i]-arr[j])==k):
+                count=count+1
+    return count
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    nk = input().split()
+
+    n = int(nk[0])
+
+    k = int(nk[1])
+
+    arr = list(map(int, input().rstrip().split()))
+
+    result = pairs(k, arr)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+
+
+
+CODE FOR THE ENCRYPTION PROBLEM : 
+
+import math
+import os
+import random
+import re
+import sys
+import textwrap
+
+# Complete the encryption function below.
+def encryption(s):
+    s="".join(s.split())
+    digits=len(s)
+    rows=math.floor(digits**0.5)
+    column=math.ceil(digits**0.5)
+    if rows*column<digits:
+        rows=rows+1
+    i=0
+    j=[]
+    
+    for r in range(rows):
+        temp_list=[]
+        for c in range(column):
+            if(i<digits):
+                temp_list.append(s[i])
+                i=i+1
+            else:
+                temp_list.append('')
+        j.append(temp_list)
+    k=[]
+    for t in range(0,column):
+        l=[]
+        for i in range(rows):
+            l.append(j[i][t])
+        m="".join(l)
+        k.append(m)
+    h=" ".join(k)
+    return h
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    s = input()
+
+    result = encryption(s)
+
+    fptr.write((result) + '\n')
+
+    fptr.close()
+
+
+
+
+
+
+CODE FOR THE SURFACE AREA PROBLEM : 
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the surfaceArea function below.
+def surfaceArea(A):
+    surf = 0
+    for i in range(len(A)):#for list in list.
+        for e in range(len(A[i])):#for element in list.
+            c = A[i][e]#current cell val
+            s = (c*4)+2#surface
+            
+            if i > 0:#side limit.
+                s -= min(c,A[i-1][e])*2
+            if e > 0:#upper limit.
+                s -= min(c,A[i][e-1])*2
+                
+            surf += s
+            
+    return surf
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    HW = input().split()
+
+    H = int(HW[0])
+
+    W = int(HW[1])
+
+    A = []
+
+    for _ in range(H):
+        A.append(list(map(int, input().rstrip().split())))
+
+    result = surfaceArea(A)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+
+
+
+
+
+CODE FOR THE CLIMBING THE LEADERBOARD PROBLEM :  
+
+import math
+import os
+import random
+import re
+import sys
+
+
+# Complete the climbingLeaderboard function below.
+def climbingLeaderboard(scores, alice):
+    score = set(scores)
+    score = list(score)
+    score.sort()
+    score.reverse()
+    k = score[len(score) - 1]
+    a = []
+    for i in range(len(alice)):
+        if (alice[i] < k):
+            a.append(len(score) + 1)
+        else:
+            for j in range(len(score)):
+                if (alice[i] == score[j]):
+                    k = j + 1
+                    a.append(k)
+                    break
+                elif (alice[i] > score[j]):
+                    k = j + 1
+                    a.append(k)
+                    break
+    return a
+
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    scores_count = int(input())
+
+    scores = list(map(int, input().rstrip().split()))
+
+    alice_count = int(input())
+
+    alice = list(map(int, input().rstrip().split()))
+
+    result = climbingLeaderboard(scores, alice)
+
+    fptr.write('\n'.join(map(str, result)))
+    fptr.write('\n')
+
+    fptr.close()
+
+
+
+
+
+
+CODE FOR THE GRID SEARCH PROBLEM : 
+
+import math
+import os
+import random
+import re
+import sys
+
+def get_index(row,char):
+    return[i for i, letter in enumerate(row) if letter==char]
+
+# Complete the gridSearch function below.
+def gridSearch(G, P):
+    flag=True
+    yes='YES'
+    no='NO'
+    gridr=len(G)
+    gridc=len(G[0])
+    patternr=len(P)
+    patternc=len(P[0])
+    max_col=gridc-patternc
+    max_row=gridr-patternr
+    first_char=P[0][0]
+
+    for r in range(max_row+1):
+        gridr=G[r]
+        s_i=get_index(gridr[:max_col+1],first_char)
+        
+        for i in s_i:
+            flag=False
+            for j in range(int(patternr)):
+                innergrid=G[r+j]
+                patternr=P[j]
+                end_index=i+patternc
+                grid_sclice=innergrid[i:end_index]
+                if grid_sclice!=patternr:
+                   flag=True
+                   break
+        if not flag:
+            return yes
+
+    return no
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    t = int(input())
+
+    for t_itr in range(t):
+        RC = input().split()
+
+        R = int(RC[0])
+
+        C = int(RC[1])
+
+        G = []
+
+        for _ in range(R):
+            G_item = input()
+            G.append(G_item)
+
+        rc = input().split()
+
+        r = int(rc[0])
+
+        c = int(rc[1])
+
+        P = []
+
+        for _ in range(r):
+            P_item = input()
+            P.append(P_item)
+
+        result = gridSearch(G, P)
+
+        fptr.write(result + '\n')
+
+    fptr.close()
+
+
+
+
+
+
+
+CODE FOR THE QUEENS ATTACK PROBLEM : 
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the queensAttack function below.
+def queensAttack(n, k, r_q, c_q, obstacles):
+  l=c_q-1
+  r=n-c_q
+  u=n-r_q
+  d=r_q-1
+  ul=l if u >= l else u
+  ur=r if u >= r else u
+  dl=l if d>= l else d
+  dr=r if d>= r else d
+  
+  for i in obstacles:
+    row=i[0]
+    col=i[1]
+
+    if row==r_q and col<c_q:
+        if c_q-col-1<l:
+            l=c_q-col-1
+    
+    elif row==r_q and col>c_q:
+        if col-c_q-1<r:
+            r=col-c_q-1
+    
+    elif row>r_q and col==c_q:
+        if row-r_q-1<u:
+            u=row-r_q-1
+    
+    elif row<r_q and col==c_q:
+        if r_q-row-1<d:
+            d=r_q-row
+
+        
+    elif row>r_q and col<c_q:
+        if row-r_q==c_q-col:
+            if r_q-row-1<ul:
+                ul=row-r_q-1
+    
+    elif row>r_q and col<c_q:
+        if row-r_q==c_q-col:
+            if row-r_q-1<ur:
+                ur=row-r_q-1
+    elif row<r_q and col<c_q:
+        if r_q-row==c_q-col:
+            if r_q-row-1<dl:
+                dl=r_q-row-1
+    elif row<r_q and col>c_q:
+        if r_q-row==c_q-col:
+            if r_q-row-1<dr:
+                dr=r_q-row-1
+  a=l+r+u+d+dl+dr+ur+ul
+  return int(a)
+    
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    nk = input().split()
+
+    n = int(nk[0])
+
+    k = int(nk[1])
+
+    r_qC_q = input().split()
+
+    r_q = int(r_qC_q[0])
+
+    c_q = int(r_qC_q[1])
+
+    obstacles = []
+
+    for _ in range(k):
+        obstacles.append(list(map(int, input().rstrip().split())))
+
+    result = queensAttack(n, k, r_q, c_q, obstacles)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+
+
+
+
+
+CODE FOR THE NONDIVISIBLE SUBSET PROBLEM : 
+
+import math
+import os
+import random
+import re
+import sys
+
+def nonDivisibleSubset(k, s):
+    # Write your code here
+        # Write your code here
+    l=[]
+    for i in range(len(s)):
+        m=[]
+        if(i!=len(s)-1):
+            for j in range(i+1,len(s)):
+                if((s[i]+s[j])%k!=0):
+                
+                    m.append(s[i])
+                    m.append(s[j])
+        else:
+            break
+        f=set(m)
+        t=list(f)
+        l.append(t)
+    a=[]
+    for i in l:
+         a.append(len(i))
+
+    a.sort()
+    return a[len(a)-1]
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    first_multiple_input = input().rstrip().split()
+
+    n = int(first_multiple_input[0])
+
+    k = int(first_multiple_input[1])
+
+    s = list(map(int, input().rstrip().split()))
+
+    result = nonDivisibleSubset(k, s)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+
+
+
+CODE FOR THE TIME IN WORDS PROBLEM : 
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the timeInWords function below.
+def timeInWords(h, m):
+    l=['one minute',
+      'two minutes',
+      'three minutes',
+      'four minutes',
+      'five minutes',
+      'six minutes',
+      'seven minutes',
+      'eight minutes',
+      'nine minutes',
+      'ten minutes',
+      'eleven minutes',
+      'twelve minutes',
+      'thirteen minutes',
+      'fourteen minutes',
+      'quarter',
+      'sixteen minutes',
+      'seventeen minutes',
+      'eighteen minutes',
+      'nineteen minutes',
+      'twenty minutes',
+      'twenty one minutes',
+      'twenty two minutes',
+      'twenty three minutes',
+      'twenty four minutes',
+      'twenty five minutes',
+      'twenty six minutes',
+      'twenty seven minutes',
+      'twenty eight minutes',
+      'twenty nine minutes',
+      'half']
+    hr=['one','two','three','four','five','six','seven','eight','nine','ten','eleven',           'twelve']
+    k=[]
+    if(m==0):
+        k.append(hr[h-1])
+        k.append("o'")
+        k.append('clock')
+    elif(m<=30):
+        k.append(l[m-1])
+        k.append('past')
+        k.append(hr[h-1])
+    elif(m>30):
+        m=60-m
+        k.append(l[m-1])
+        k.append('to')
+        k.append(hr[h])
+    return (" ").join(k)
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    h = int(input())
+
+    m = int(input())
+
+    result = timeInWords(h, m)
+
+    fptr.write(result + '\n')
+
+    fptr.close()
+
+
+
+
+
+CODE FOR THE SHERLOCK AND ANAGRAM PROBLEM : 
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the sherlockAndAnagrams function below.
+def sherlockAndAnagrams(s):
+     n=len(s)
+     count=0
+     for i in range(1,n):
+        d={}
+        for j in range(n-i+1):
+            subs=''.join(sorted(s[j:j+i]))
+            if subs not in d:
+                d[subs]=1
+            else:
+                d[subs]+=1
+            count=count+d[subs]-1
+     return count
+
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    q = int(input())
+
+    for q_itr in range(q):
+        s = input()
+
+        result = sherlockAndAnagrams(s)
+
+        fptr.write(str(result) + '\n')
+
+    fptr.close()
+
